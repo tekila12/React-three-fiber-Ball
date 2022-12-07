@@ -17,7 +17,6 @@ export default function App() {
       <a.main style={{ background }}>
         <Canvas className="canvas" dpr={[1, 2]}>
           <Scene setBg={set} />
-
           <OrbitControls
             enablePan={false}
             enableZoom={false}
