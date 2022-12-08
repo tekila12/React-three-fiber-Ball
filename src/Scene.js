@@ -1,6 +1,10 @@
 import React, { Suspense, useRef, useState } from 'react'
-import {ContactShadows, Environment, Html, PerspectiveCamera} from "@react-three/drei"
+import {ContactShadows, Environment, Html, MeshDistortMaterial, PerspectiveCamera} from "@react-three/drei"
 import {a, useSpring} from '@react-spring/three'
+import { useFrame } from "@react-three/fiber";
+import * as THREE from "three";
+const AnimatedMaterial = a(MeshDistortMaterial);
+
 export default function Scene({setBg}) {
 
   const sphere = useRef();
@@ -23,6 +27,24 @@ export default function Scene({setBg}) {
     },
     [mode, hovered, down]
   );
+
+  useFrame((state) => {
+    light.current.position.x = state.mouse.x * 20;
+    light.current.position.y = state.mouse.y * 20;
+    if (sphere.current) {
+      sphere.current.position.x = THREE.MathUtils.lerp(
+        sphere.current.position.x,
+        hovered ? state.mouse.x / 2 : 0,
+        0.2
+      );
+      sphere.current.position.y = THREE.MathUtils.lerp(
+        sphere.current.position.y,
+        Math.sin(state.clock.elapsedTime / 1.5) / 6 +
+          (hovered ? state.mouse.y / 2 : 0),
+        0.2
+      );
+    }
+  });
   return (
     <>
      <PerspectiveCamera makeDefault fov={75} position={[0,0,4]}>
@@ -39,8 +61,12 @@ export default function Scene({setBg}) {
       onPointerUp={()=>{ 
       setDown(false)
       setMode(!mode)
-      setBg=({background:!mode ? '#202020' :'#f0f0f0', fill: !mode ? '#f0f0f0': '#202020' }) }} >
+    setBg({background: !mode ? '#202020' :'#f0f0f0', fill: !mode ? '#f0f0f0': '#202020' }) }} 
+    
+    
+      >
         <sphereBufferGeometry args={[1,64,64]}  />
+        <AnimatedMaterial color={color} envMapIntensity={env} clearcoat={coat} clearcoatRoughness={0} metalness={0.3} />
       </a.mesh>
       <Environment preset='warehouse'/>
       <ContactShadows
