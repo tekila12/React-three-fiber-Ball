@@ -66,7 +66,7 @@ export default function Scene({setBg}) {
     
       >
         <sphereBufferGeometry args={[1,64,64]}  />
-        <AnimatedMaterial color={color} envMapIntensity={env} clearcoat={coat} clearcoatRoughness={0} metalness={0.3} />
+        <AnimatedMaterial color={color} envMapIntensity={env} clearcoat={coat} clearcoatRoughness={0} metalness={1} />
       </a.mesh>
       <Environment preset='warehouse'/>
       <ContactShadows

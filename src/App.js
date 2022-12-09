@@ -4,7 +4,7 @@ import { useSpring } from "@react-spring/core";
 import { a } from "@react-spring/web";
 import './App.css';
 import Scene from "./Scene";
-
+import Overlay from "./Overlay";
 
 export default function App() {
 
@@ -15,6 +15,7 @@ export default function App() {
   return (
     <>
       <a.main style={{ background }}>
+        
         <Canvas className="canvas" dpr={[1, 2]}>
           <Scene setBg={set} />
           <OrbitControls
@@ -24,7 +25,7 @@ export default function App() {
             minPolarAngle={Math.PI / 2}
           />
         </Canvas>
-      
+      <Overlay fill={fill} />
       </a.main>
      </>
   );
