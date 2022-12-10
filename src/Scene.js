@@ -1,5 +1,5 @@
 import React, { Suspense, useRef, useState } from 'react'
-import {ContactShadows, Environment, Html, MeshDistortMaterial, PerspectiveCamera} from "@react-three/drei"
+import {ContactShadows, Environment, MeshDistortMaterial, PerspectiveCamera} from "@react-three/drei"
 import {a, useSpring} from '@react-spring/three'
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
